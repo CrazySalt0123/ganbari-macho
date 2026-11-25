@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#101510">
+
+  <title>がんばりマッチョ</title>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+    body {
+
+      margin: 0;
+
+      padding: 20px 16px 100px;
+
+      background: #101510;
+
+      color: #ffffff;
+
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+    }
+
+    header {
+
+      margin: 12px 0 28px;
+
+    }
+
+    .logo {
+
+      color: #70e58a;
+
+      font-size: 27px;
+
+      font-weight: 800;
+
+    }
+
+    .date {
+
+      color: #9ca69e;
+
+      margin-top: 8px;
+
+    }
+
+    .card {
+
+      background: #1c241e;
+
+      border: 1px solid #303b32;
+
+      border-radius: 16px;
+
+      padding: 18px;
+
+      margin-bottom: 16px;
+
+    }
+
+    .card h2 {
+
+      font-size: 17px;
+
+      margin: 0 0 14px;
+
+    }
+
+    .welcome {
+
+      color: #aab5ac;
+
+      font-size: 14px;
+
+    }
+
+    .stats {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 12px;
+
+    }
+
+    .number {
+
+      font-size: 25px;
+
+      font-weight: 800;
+
+      color: #70e58a;
+
+    }
+
+    .unit {
+
+      color: #aab5ac;
+
+      font-size: 12px;
+
+    }
+
+    .progress {
+
+      height: 9px;
+
+      background: #354039;
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+      margin-top: 12px;
+
+    }
+
+    .progress-inner {
+
+      width: 35%;
+
+      height: 100%;
+
+      background: #70e58a;
+
+      border-radius: 20px;
+
+    }
+
+    .menu-item {
+
+      padding: 12px 0;
+
+      border-bottom: 1px solid #303b32;
+
+      color: #dce5de;
+
+    }
+
+    .menu-item:last-child {
+
+      border: none;
+
+    }
+
+    nav {
+
+      position: fixed;
+
+      bottom: 0;
+
+      left: 0;
+
+      right: 0;
+
+      display: flex;
+
+      justify-content: space-around;
+
+      background: #1c241e;
+
+      border-top: 1px solid #354039;
+
+      padding: 12px 2px calc(12px + env(safe-area-inset-bottom));
+
+    }
+
+    nav button {
+
+      background: none;
+
+      border: none;
+
+      color: #aab5ac;
+
+      font-size: 11px;
+
+      padding: 5px 2px;
+
+    }
+
+    nav button.active {
+
+      color: #70e58a;
+
+    }
+
+    nav span {
+
+      display: block;
+
+      font-size: 21px;
+
+      margin-bottom: 4px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">💪 がんばりマッチョ</div>
+
+    <div class="date" id="today"></div>
+
+  </header>
+
+  <section class="card">
+
+    <h2>今日も頑張ろう！</h2>
+
+    <p class="welcome">理想の身体を目指して、一歩ずつ。</p>
+
+  </section>
+
+  <section class="card">
+
+    <h2>身体の記録</h2>
+
+    <div class="stats">
+
+      <div>
+
+        <div class="number">57.0</div>
+
+        <div class="unit">現在の体重 kg</div>
+
+      </div>
+
+      <div>
+
+        <div class="number">75.0</div>
+
+        <div class="unit">目標体重 kg</div>
+
+      </div>
+
+    </div>
+
+    <div class="progress">
+
+      <div class="progress-inner"></div>
+
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <h2>今日の栄養管理</h2>
+
+    <div class="stats">
+
+      <div>
+
+        <div class="number">0</div>
+
+        <div class="unit">摂取カロリー kcal</div>
+
+      </div>
+
+      <div>
+
+        <div class="number">0 / 0</div>
+
+        <div class="unit">食費 / 予算 円</div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <h2>今日のメニュー</h2>
+
+    <div class="menu-item">🏋️ 筋トレメニュー</div>
+
+    <div class="menu-item">🍽️ 今日の献立</div>
+
+    <div class="menu-item">📊 身体の記録</div>
+
+  </section>
+
+  <nav>
+
+    <button class="active"><span>🏠</span>ホーム</button>
+
+    <button><span>🏋️</span>筋トレ</button>
+
+    <button><span>🍽️</span>食事</button>
+
+    <button><span>💰</span>食費</button>
+
+    <button><span>📊</span>身体・設定</button>
+
+  </nav>
+
+  <script>
+
+    document.getElementById("today").textContent =
+
+      new Date().toLocaleDateString("ja-JP", {
+
+        year: "numeric",
+
+        month: "long",
+
+        day: "numeric",
+
+        weekday: "long"
+
+      });
+
+  </script>
+
+</body>
+
+</html>
