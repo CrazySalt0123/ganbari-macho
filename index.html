@@ -1,29 +1,111 @@
-💪 がんばりマッチョ
-
-今日も頑張ろう！
-理想の身体を目指して、一歩ずつ。
-身体の記録
-57.0
-現在の体重 kg
-75.0
-目標体重 kg
-
-今日の栄養管理
-0
-摂取カロリー kcal
-0 / 0
-食費 / 予算 円
-今日のメニュー
-🏋️ 筋トレメニュー：筋トレタブから登録
-🍽️ 今日の献立：食事タブから記録
-📊 身体の記録：身体・設定タブから入力
-🏠
-ホーム
-🏋️
-筋トレ
-🍽️
-食事
-💰
-食費
-📊
-身体・設定
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101510">
+<title>がんばりマッチョ</title>
+<style>
+:root{--bg:#101510;--panel:#1b241d;--panel2:#222d24;--green:#55d66b;--muted:#aab6aa;--line:#344337}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f3f7f2;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;padding-bottom:86px}
+header{padding:22px 18px 14px;background:#151e16;border-bottom:1px solid var(--line)}
+h1{font-size:23px;margin:0 0 6px} header p{margin:0;color:var(--muted);font-size:13px}
+main{max-width:720px;margin:auto;padding:16px}
+.page{display:none}.page.active{display:block}
+h2{font-size:20px;margin:4px 0 14px}
+h3{font-size:15px;margin:0 0 10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--panel2);border-radius:12px;padding:13px}
+.stat strong{display:block;font-size:25px;color:var(--green);margin:5px 0}
+small,.muted{color:var(--muted)}
+label{display:block;color:var(--muted);font-size:13px;margin:12px 0 6px}
+input,select,textarea{width:100%;background:#101810;color:#fff;border:1px solid #465849;border-radius:10px;padding:12px;font-size:16px}
+button{border:0;border-radius:10px;background:var(--green);color:#0b160d;font-weight:700;font-size:15px;padding:12px 15px;margin-top:12px}
+button.secondary{background:#344337;color:#f3f7f2}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.item:last-child{border:0}
+nav{position:fixed;bottom:0;left:0;right:0;background:#172019;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}
+nav button{margin:0;padding:8px 2px;background:transparent;color:var(--muted);font-size:11px;border-radius:9px}
+nav button span{display:block;font-size:20px;margin-bottom:3px}
+nav button.active{color:var(--green);background:#26362a}
+.notice{font-size:12px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<header><h1>💪 がんばりマッチョ</h1><p>今日も頑張ろう！理想の身体を目指して、一歩ずつ。</p></header>
+<main>
+<section class="page active" id="home">
+<h2>ホーム</h2>
+<div class="card">
+<h3>身体の記録</h3><div class="stats">
+<div class="stat"><small>現在の体重</small><strong id="homeWeight">57.0</strong><small>kg</small></div>
+<div class="stat"><small>目標体重</small><strong id="homeGoal">75.0</strong><small>kg</small></div>
+</div>
+</div>
+<div class="card"><h3>今日の栄養管理</h3><div class="stats">
+<div class="stat"><small>摂取カロリー</small><strong id="homeCalories">0</strong><small>kcal</small></div>
+<div class="stat"><small>食費 / 予算</small><strong id="homeCost">0 / 0</strong><small>円</small></div>
+</div></div>
+<div class="card"><h3>今日のメニュー</h3><p>🏋️ 筋トレメニュー：筋トレタブから登録</p><p>🍽️ 今日の献立：食事タブから記録</p><p>📊 身体の記録：身体・設定タブから入力</p></div>
+</section>
+<section class="page" id="training">
+<h2>🏋️ 筋トレ記録</h2>
+<div class="card"><h3>トレーニングを追加</h3>
+<label>種目名</label><input id="exercise" placeholder="例：ベンチプレス">
+<div class="formgrid"><div><label>セット数</label><input id="sets" type="number" min="1" value="3"></div><div><label>回数</label><input id="reps" type="number" min="1" value="10"></div></div>
+<label>重量（kg・任意）</label><input id="weightLift" type="number" min="0" step="0.5" placeholder="例：40">
+<button onclick="addTraining()">筋トレを保存</button></div>
+<div class="card"><h3>今日の記録</h3><div id="trainingList" class="muted">まだ記録はありません。</div></div>
+</section>
+<section class="page" id="food">
+<h2>🍽️ 食事記録</h2>
+<div class="card"><h3>食べたものを追加</h3>
+<label>料理・食品名</label><input id="foodName" placeholder="例：鶏むね肉定食">
+<div class="formgrid"><div><label>カロリー（kcal）</label><input id="foodCalories" type="number" min="0" placeholder="例：650"></div><div><label>食費（円）</label><input id="foodCost" type="number" min="0" placeholder="例：400"></div></div>
+<button onclick="addFood()">食事を保存</button></div>
+<div class="card"><h3>今日の食事</h3><div id="foodList" class="muted">まだ記録はありません。</div></div>
+</section>
+<section class="page" id="budget">
+<h2>💰 食費管理</h2>
+<div class="card"><h3>食費予算</h3><label>1日の食費予算（円）</label><input id="budgetInput" type="number" min="0" placeholder="例：1500"><button onclick="saveBudget()">予算を保存</button>
+<div class="stats" style="margin-top:14px"><div class="stat"><small>今日の食費</small><strong id="budgetSpent">0</strong><small>円</small></div><div class="stat"><small>予算残額</small><strong id="budgetLeft">0</strong><small>円</small></div></div></div>
+</section>
+<section class="page" id="body">
+<h2>📊 身体・設定</h2>
+<div class="card"><h3>身体情報</h3><label>現在の体重（kg）</label><input id="weightInput" type="number" step="0.1" min="0" value="57">
+<label>目標体重（kg）</label><input id="goalInput" type="number" step="0.1" min="0" value="75">
+<button onclick="saveBody()">身体情報を保存</button></div>
+<div class="card"><h3>データについて</h3><p class="notice">記録はこの端末のブラウザ内に保存されます。ブラウザのデータを消去すると記録も消える場合があります。大切な記録は別途控えておいてください。</p></div>
+</section>
+</main>
+<nav>
+<button class="active" data-target="home"><span>🏠</span>ホーム</button>
+<button data-target="training"><span>🏋️</span>筋トレ</button>
+<button data-target="food"><span>🍽️</span>食事</button>
+<button data-target="budget"><span>💰</span>食費</button>
+<button data-target="body"><span>📊</span>身体・設定</button>
+</nav>
+<script>
+const KEY='ganbariMachoData';
+let data={trainings:[],foods:[],budget:0,weight:57,goal:75};
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved)data={...data,...saved}}catch(e){}
+const today=()=>new Date().toLocaleDateString('ja-JP');
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function addTraining(){const name=document.getElementById('exercise').value.trim();if(!name){alert('種目名を入力してください');return}data.trainings.push({date:today(),name,sets:Number(document.getElementById('sets').value)||0,reps:Number(document.getElementById('reps').value)||0,weight:Number(document.getElementById('weightLift').value)||0});document.getElementById('exercise').value='';persist()}
+function addFood(){const name=document.getElementById('foodName').value.trim();if(!name){alert('料理・食品名を入力してください');return}data.foods.push({date:today(),name,cal:Number(document.getElementById('foodCalories').value)||0,cost:Number(document.getElementById('foodCost').value)||0});document.getElementById('foodName').value='';document.getElementById('foodCalories').value='';document.getElementById('foodCost').value='';persist()}
+function saveBudget(){data.budget=Number(document.getElementById('budgetInput').value)||0;persist()}
+function saveBody(){data.weight=Number(document.getElementById('weightInput').value)||0;data.goal=Number(document.getElementById('goalInput').value)||0;persist()}
+function render(){const foods=data.foods.filter(x=>x.date===today()),trainings=data.trainings.filter(x=>x.date===today());const cal=foods.reduce((s,x)=>s+x.cal,0),cost=foods.reduce((s,x)=>s+x.cost,0);
+document.getElementById('homeWeight').textContent=Number(data.weight).toFixed(1);document.getElementById('homeGoal').textContent=Number(data.goal).toFixed(1);document.getElementById('homeCalories').textContent=cal.toLocaleString();document.getElementById('homeCost').textContent=cost.toLocaleString()+' / '+Number(data.budget).toLocaleString();
+document.getElementById('budgetSpent').textContent=cost.toLocaleString();document.getElementById('budgetLeft').textContent=(Number(data.budget)-cost).toLocaleString();
+document.getElementById('trainingList').innerHTML=trainings.length?trainings.map(x=>`<div class="item">${esc(x.name)}：${x.sets}セット × ${x.reps}回 ${x.weight?`・${x.weight}kg`:''}</div>`).join(''):'まだ記録はありません。';
+document.getElementById('foodList').innerHTML=foods.length?foods.map(x=>`<div class="item">${esc(x.name)}：${x.cal} kcal・${x.cost}円</div>`).join(''):'まだ記録はありません。';
+document.getElementById('budgetInput').value=data.budget||'';document.getElementById('weightInput').value=data.weight;document.getElementById('goalInput').value=data.goal}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(n=>n.classList.remove('active'));document.getElementById(b.dataset.target).classList.add('active');b.classList.add('active');window.scrollTo(0,0)}));
+render();
+</script>
+</body>
+</html>
